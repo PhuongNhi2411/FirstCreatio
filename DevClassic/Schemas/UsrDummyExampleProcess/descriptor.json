@@ -1,0 +1,10 @@
+﻿{
+  "Descriptor": {
+    "UId": "050e46e7-ffae-4695-97c5-18746eb4b7e7",
+    "Name": "UsrDummyExampleProcess",
+    "ModifiedOnUtc": "\/Date(1723649821000)\/",
+    "ManagerName": "ProcessSchemaManager",
+    "Caption": "Dummy example process",
+    "DependsOn": []
+  }
+}
