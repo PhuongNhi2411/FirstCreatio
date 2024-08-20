@@ -243,7 +243,11 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/[]/**SCHEMA_DEPS*/, function/**SCHE
 					"label": "$Resources.Strings.PDS_UsrComment_6v8z8pk",
 					"labelPosition": "auto",
 					"control": "$PDS_UsrComment_6v8z8pk",
-					"multiline": false
+					"multiline": false,
+					"visible": false,
+					"readonly": false,
+					"placeholder": "",
+					"tooltip": ""
 				},
 				"parentName": "GeneralInfoTabContainer",
 				"propertyName": "items",
@@ -318,6 +322,84 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/[]/**SCHEMA_DEPS*/, function/**SCHE
 				"parentName": "GeneralInfoTabContainer",
 				"propertyName": "items",
 				"index": 5
+			},
+			{
+				"operation": "insert",
+				"name": "Region",
+				"values": {
+					"layoutConfig": {
+						"column": 1,
+						"row": 4,
+						"colSpan": 1,
+						"rowSpan": 1
+					},
+					"type": "crt.ComboBox",
+					"label": "$Resources.Strings.PDS_UsrRegion_dmw5mgf",
+					"labelPosition": "auto",
+					"control": "$PDS_UsrRegion_dmw5mgf",
+					"listActions": [],
+					"showValueAsLink": true,
+					"controlActions": []
+				},
+				"parentName": "GeneralInfoTabContainer",
+				"propertyName": "items",
+				"index": 6
+			},
+			{
+				"operation": "insert",
+				"name": "addRecord_nha2mdt",
+				"values": {
+					"code": "addRecord",
+					"type": "crt.ComboboxSearchTextAction",
+					"icon": "combobox-add-new",
+					"caption": "#ResourceString(addRecord_nha2mdt_caption)#",
+					"clicked": {
+						"request": "crt.CreateRecordFromLookupRequest",
+						"params": {}
+					}
+				},
+				"parentName": "Region",
+				"propertyName": "listActions",
+				"index": 0
+			},
+			{
+				"operation": "insert",
+				"name": "City",
+				"values": {
+					"layoutConfig": {
+						"column": 2,
+						"row": 4,
+						"colSpan": 1,
+						"rowSpan": 1
+					},
+					"type": "crt.ComboBox",
+					"label": "$Resources.Strings.PDS_UsrCity_d1jrfls",
+					"labelPosition": "auto",
+					"control": "$PDS_UsrCity_d1jrfls",
+					"listActions": [],
+					"showValueAsLink": true,
+					"controlActions": []
+				},
+				"parentName": "GeneralInfoTabContainer",
+				"propertyName": "items",
+				"index": 7
+			},
+			{
+				"operation": "insert",
+				"name": "addRecord_lvypmqc",
+				"values": {
+					"code": "addRecord",
+					"type": "crt.ComboboxSearchTextAction",
+					"icon": "combobox-add-new",
+					"caption": "#ResourceString(addRecord_lvypmqc_caption)#",
+					"clicked": {
+						"request": "crt.CreateRecordFromLookupRequest",
+						"params": {}
+					}
+				},
+				"parentName": "City",
+				"propertyName": "listActions",
+				"index": 0
 			}
 		]/**SCHEMA_VIEW_CONFIG_DIFF*/,
 		viewModelConfigDiff: /**SCHEMA_VIEW_MODEL_CONFIG_DIFF*/[
@@ -335,11 +417,29 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/[]/**SCHEMA_DEPS*/, function/**SCHE
 					"PDS_UsrPriceUSD_5odlzb6": {
 						"modelConfig": {
 							"path": "PDS.UsrPriceUSD"
+						},
+						"validators": {
+							"MySuperValidator": {
+								"type": "usr.DGValidator",
+								"params": {
+									"minValue": 50,
+									"message": "#ResourceString(PriceCannotBeLess)#"
+								}
+							}
 						}
 					},
 					"PDS_UsrArea_2agok5a": {
 						"modelConfig": {
 							"path": "PDS.UsrArea"
+						},
+						"validators": {
+							"MySuperValidator": {
+								"type": "usr.DGValidator",
+								"params": {
+									"minValue": 10,
+									"message": "#ResourceString(AreaCannotBeLess)#"
+								}
+							}
 						}
 					},
 					"PDS_UsrType_fyw66py": {
@@ -375,6 +475,16 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/[]/**SCHEMA_DEPS*/, function/**SCHE
 					"PDS_UsrCommissionUSD_to5rlee": {
 						"modelConfig": {
 							"path": "PDS.UsrCommissionUSD"
+						}
+					},
+					"PDS_UsrRegion_dmw5mgf": {
+						"modelConfig": {
+							"path": "PDS.UsrRegion"
+						}
+					},
+					"PDS_UsrCity_d1jrfls": {
+						"modelConfig": {
+							"path": "PDS.UsrCity"
 						}
 					}
 				}
@@ -443,7 +553,8 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/[]/**SCHEMA_DEPS*/, function/**SCHE
 				handler: async (request, next) => {
 					if (request.attributeName === 'PDS_UsrPriceUSD_5odlzb6' || 				// if price changed
 					   request.attributeName === 'PDS_UsrOfferTypeUsrCommissionPercent' ) { 		// or percent changed
-						var price = await request.$context.PDS_UsrPriceUSD_5odlzb6;
+						// debugger;
+                        var price = await request.$context.PDS_UsrPriceUSD_5odlzb6;
 						var percent = await request.$context.PDS_UsrOfferTypeUsrCommissionPercent;
 						var commission = price * percent / 100;
 						request.$context.PDS_UsrCommissionUSD_to5rlee = commission;
@@ -459,6 +570,43 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/[]/**SCHEMA_DEPS*/, function/**SCHE
 			}
         ]/**SCHEMA_HANDLERS*/,
 		converters: /**SCHEMA_CONVERTERS*/{}/**SCHEMA_CONVERTERS*/,
-		validators: /**SCHEMA_VALIDATORS*/{}/**SCHEMA_VALIDATORS*/
+		validators: /**SCHEMA_VALIDATORS*/{
+          /* The validator type must contain a vendor prefix.
+			
+          Format the validator type in PascalCase. */
+          "usr.DGValidator": {	
+            validator: function (config) {
+              return function (control) {	
+                value = control.value;		
+                let minValue = config.minValue;		
+                let valueIsCorrect = value >= minValue;		
+                var result;		
+                if (valueIsCorrect) {			
+                  result = null;
+						
+                } else 
+                {
+				result = {
+                    "usr.DGValidator": { 			
+                      message: config.message
+								}
+							};
+                  }
+                  return result;
+					
+              };
+				
+            },
+				params: [
+					{
+						name: "minValue"
+					},
+					{
+						name: "message"
+					}
+				],
+				async: false
+			}
+        }/**SCHEMA_VALIDATORS*/
 	};
 });
