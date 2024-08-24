@@ -1,0 +1,33 @@
+= MetaData.Schema.UId "cd5e23f5-0b80-4706-8aa0-e428261a9a60"
+= MetaData.Schema.A5 "092b51fb-de80-4de6-9ebb-dd52b4d9b233"
+= MetaData.Schema.B6 "c3a78d68-63bd-4329-8145-3c0d94814003"
+= MetaData.Schema.B7 true
+= MetaData.Schema.EG1.UId "d442ea7d-eb38-4f14-bbc8-0c719bad976c"
+= MetaData.Schema.EG1.A2 "UsrEntity_071befeEventsProcess"
+= MetaData.Schema.EG1.A5 "092b51fb-de80-4de6-9ebb-dd52b4d9b233"
++ MetaData.Schema.EG1.B7 true
+= MetaData.Schema.EG1.BK8 "fcf8622a-a3a9-4e9e-99b5-2e9b5e50d375"
+= MetaData.Schema.D8 "4519f76e-5721-418e-ac21-51f2a3c0e4da"
+- MetaData.Schema.D2.["ae0e45ca-c495-4fe7-a39d-3ab7278e1617"].E16
+- MetaData.Schema.D2.["e80190a5-03b2-4095-90f7-a193a960adee"].E16
+- MetaData.Schema.D2.["ebf6bb93-8aa6-4a01-900d-c6ea67affe21"].E16
+- MetaData.Schema.D2.["9928edec-4272-425a-93bb-48743fee4b04"].E16
+- MetaData.Schema.D2.["3015559e-cbc6-406a-88af-07f7930be832"].E16
+- MetaData.Schema.D2.["3fabd836-6a53-4d8d-9069-6df88d9dae1e"].E16
++ MetaData.Schema.D20 {"A2":"UsrRealtyClassicEvents"}
+= MetaData.Schema.D36.A3 "cd5e23f5-0b80-4706-8aa0-e428261a9a60"
+= MetaData.Schema.D36.BS1 false
++ MetaData.Schema.B7 true
++ MetaData.Schema.D2.["ae0e45ca-c495-4fe7-a39d-3ab7278e1617"].E16 false
++ MetaData.Schema.D2.["e80190a5-03b2-4095-90f7-a193a960adee"].E16 false
++ MetaData.Schema.D2.["ebf6bb93-8aa6-4a01-900d-c6ea67affe21"].E16 false
++ MetaData.Schema.D2.["9928edec-4272-425a-93bb-48743fee4b04"].E16 false
++ MetaData.Schema.D2.["3015559e-cbc6-406a-88af-07f7930be832"].E16 false
++ MetaData.Schema.D2.["3fabd836-6a53-4d8d-9069-6df88d9dae1e"].E16 false
++ MetaData.Schema.D2.["906684fb-40a0-4f14-a4ad-646589a4dead"].E16 false
++ MetaData.Schema.D2.["0d4aa3ce-1c42-46c7-a73c-7353995b1cbd"].E16 false
++ MetaData.Schema.D2.["2a79690a-bf2e-4391-b355-6220cd72fb0a"].E16 false
++ MetaData.Schema.D2.["e42f4fec-2b8e-42fc-beb0-ba6ea817da39"].E16 false
++ MetaData.Schema.D2.["6e652e6f-a46d-4f5b-8eb6-f763aea051b7"].E16 false
++ MetaData.Schema.D2.["05a025d8-8d63-4d9e-a865-c63c2f9d115f"].E16 false
++ MetaData.Schema.D2.["e586812b-452f-4ed5-a8e3-757d05536755"].E16 false

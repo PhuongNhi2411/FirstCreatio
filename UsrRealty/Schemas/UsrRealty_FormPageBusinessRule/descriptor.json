@@ -4,6 +4,7 @@
     "Name": "UsrRealty_FormPageBusinessRule",
     "ModifiedOnUtc": "\/Date(1724146129000)\/",
     "ManagerName": "AddonSchemaManager",
-    "Caption": "Realty form page (Business rules)"
+    "Caption": "Realty form page (Business rules)",
+    "DependsOn": []
   }
 }
