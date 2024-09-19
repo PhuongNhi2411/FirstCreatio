@@ -1,0 +1,10 @@
+﻿{
+  "Descriptor": {
+    "UId": "59cca583-0aaf-4d8d-a3df-f8436042202d",
+    "Name": "UsrAutoAddVisitRecordsAction",
+    "ModifiedOnUtc": "\/Date(1726126420000)\/",
+    "ManagerName": "ProcessSchemaManager",
+    "Caption": "UsrAutoAddVisitRecordsAction",
+    "DependsOn": []
+  }
+}

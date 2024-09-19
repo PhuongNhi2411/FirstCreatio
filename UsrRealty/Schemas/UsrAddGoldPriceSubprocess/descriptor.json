@@ -4,6 +4,7 @@
     "Name": "UsrAddGoldPriceSubprocess",
     "ModifiedOnUtc": "\/Date(1725507301000)\/",
     "ManagerName": "ProcessSchemaManager",
-    "Caption": "Add gold price subprocess"
+    "Caption": "Add gold price subprocess",
+    "DependsOn": []
   }
 }

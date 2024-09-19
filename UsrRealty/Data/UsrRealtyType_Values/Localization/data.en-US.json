@@ -67,12 +67,12 @@
         {
           "SchemaColumnUId": "736c30a7-c0ec-4fa9-b034-2552b319b633",
           "ColumnName": "Name",
-          "Value": "4. Parking"
+          "Value": "3. Land"
         },
         {
           "SchemaColumnUId": "9e53fd7c-dde4-4502-a64c-b9e34148108b",
           "ColumnName": "Description",
-          "Value": "place to park your lovely car!"
+          "Value": "any parts of the land that may have an easement or reservation"
         }
       ]
     }

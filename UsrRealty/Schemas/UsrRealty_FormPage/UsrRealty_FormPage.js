@@ -92,10 +92,10 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
 			},
 			{
 				"operation": "insert",
-				"name": "CalcMaxPriceWebServiceMenuItem",
+				"name": "CalcMinPriceWebServiceMenuItem",
 				"values": {
 					"type": "crt.MenuItem",
-					"caption": "#ResourceString(MenuItem_c29sc34_caption)#",
+					"caption": "#ResourceString(CalcMaxPriceWebServiceMenuItem_caption)#",
 					"visible": true,
 					"clicked": {
 						"request": "usr.RunWebServiceButtonRequest"
@@ -105,6 +105,28 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
 				"parentName": "Button_duuov2z",
 				"propertyName": "menuItems",
 				"index": 1
+			},
+			{
+				"operation": "insert",
+				"name": "AddVisitRecords",
+				"values": {
+					"type": "crt.MenuItem",
+					"caption": "#ResourceString(AddVisitRecords_caption)#",
+					"visible": true,
+					"clicked": {
+						"request": "crt.RunBusinessProcessRequest",
+						"params": {
+							"processName": "UsrAutoAddVisitRecordsAction",
+							"processRunType": "ForTheSelectedPage",
+							"showNotification": true,
+							"recordIdProcessParameterName": "RealtyIdParameter"
+						}
+					},
+					"icon": "add-button-icon"
+				},
+				"parentName": "Button_duuov2z",
+				"propertyName": "menuItems",
+				"index": 2
 			},
 			{
 				"operation": "insert",
@@ -786,7 +808,7 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
 							"MySuperValidator": {
 								"type": "usr.DGValidator",
 								"params": {
-									"minValue": 50,
+									"minValue": 0,
 									"message": "#ResourceString(PriceCannotBeLess)#"
 								}
 							}
@@ -800,7 +822,7 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
 							"MySuperValidator": {
 								"type": "usr.DGValidator",
 								"params": {
-									"minValue": 10,
+									"minValue": 0,
 									"message": "#ResourceString(AreaCannotBeLess)#"
 								}
 							}
@@ -819,6 +841,11 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
 					"PDS_UsrComment_6v8z8pk": {
 						"modelConfig": {
 							"path": "PDS.UsrComment"
+						},
+						"validators": {
+							"required": {
+								"type": "crt.Required"
+							}
 						}
 					},
 					"PDS_UsrManager_qg19nz8": {
@@ -1011,7 +1038,17 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
 						request.$context.PDS_UsrCommissionUSD_to5rlee = commission;
 
 					}
-
+                  if (request.attributeName === 'PDS_UsrPriceUSD_5odlzb6') {
+                      var priceSelected = await request.$context.PDS_UsrPriceUSD_5odlzb6;
+                      /* Check the request description. */
+                      if (priceSelected > 5000) {
+                          /* If the price > 5000, apply the validator to the “UsrComment” attribute. */
+                          request.$context.enableAttributeValidator('PDS_UsrComment_6v8z8pk', 'required');
+                      } else {
+                          /* If the price <= 5000, do not apply the validator to the “UsrComment” attribute. */
+                          request.$context.disableAttributeValidator('PDS_UsrComment_6v8z8pk', 'required');
+                      }
+                  }
 					/* Call the next handler if it exists and return its result. */
 
 					return next?.handle(request);
@@ -1045,9 +1082,9 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
 					const baseUrl = Terrasoft.utils.uri.getConfigurationWebServiceBaseUrl();
 					const transferName = "rest";
 					const serviceName = "RealtyService";
-					const methodName = "GetMaxPriceByTypeId";
+					const methodName = "GetMinPriceByTypeId";
 					const endpoint = Terrasoft.combinePath(baseUrl, transferName, serviceName, methodName);
-					//const endpoint = "http://localhost/D1_Studio/0/rest/RealtyService/GetMaxPriceByTypeId";
+					//const endpoint = "http://localhost/D1_Studio/0/rest/RealtyService/GetMinPriceByTypeId";
 					/* Send a POST HTTP request. The HTTP client converts the response body from JSON to a JS object automatically. */
 					var params = {
 						realtyTypeId: typeId,
@@ -1056,7 +1093,7 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
 					};
 					const response = await httpClientService.post(endpoint, params);
 					
-					console.log("response max price = " + response.body.GetMaxPriceByTypeIdResult);
+					console.log("response min price = " + response.body.GetMinPriceByTypeIdResult);
 					
 					/* Call the next handler if it exists and return its result. */
 					return next?.handle(request);
@@ -1073,7 +1110,7 @@ define("UsrRealty_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/common"]/**SCHEMA
               return function (control) {	
                 value = control.value;		
                 let minValue = config.minValue;		
-                let valueIsCorrect = value >= minValue;		
+                let valueIsCorrect = value > minValue;		
                 var result;		
                 if (valueIsCorrect) {			
                   result = null;

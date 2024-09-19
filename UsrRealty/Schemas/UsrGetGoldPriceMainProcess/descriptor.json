@@ -4,6 +4,7 @@
     "Name": "UsrGetGoldPriceMainProcess",
     "ModifiedOnUtc": "\/Date(1725507633000)\/",
     "ManagerName": "ProcessSchemaManager",
-    "Caption": "Get gold price main process"
+    "Caption": "Get gold price main process",
+    "DependsOn": []
   }
 }
